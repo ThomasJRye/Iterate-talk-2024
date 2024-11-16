@@ -1,18 +1,16 @@
 import numpy as np
 import argparse
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
 
-def loss(y_true, y_pred):
-    if y_true == y_pred:
-        return 0
-        # Ensure y_pred is within the range (0, 1)
-    y_pred = np.clip(y_pred, 1e-15, 1 - 1e-15)
-    return abs(-y_true * np.log(y_pred) - (1 - y_true) * np.log(1 - y_pred))
+def mean_squared_error(act: np.ndarray, pred: np.ndarray) -> float:
+    diff = pred - act
+    print("difference", diff)
+    differences_squared = diff ** 2
+    print("difference suqared", differences_squared)
+    mean_diff = differences_squared.mean()
+    
+    return mean_diff
 
-def loss_rounded(y_true, y_pred):
-    return round(loss(y_true, y_pred), 3)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Calculate the loss function.")
@@ -24,7 +22,7 @@ if __name__ == "__main__":
     y_true = args.y_true
     y_pred = args.y_pred
 
-    result = loss_rounded(y_true, y_pred)
+    result = mean_squared_error(np.array([y_true]), np.array([y_pred]))
     print(f"Loss: {result}")
 
 
