@@ -38,3 +38,4 @@ print("Most similar words to 'god':", similar_words)
 
 print("number of words: ", len(model.wv.index_to_key))
 
+print("vocab: ", model.wv.index_to_key)
