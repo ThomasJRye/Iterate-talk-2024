@@ -9,7 +9,6 @@ model = api.load("word2vec-google-news-300")
 def get_word_embedding(word: str):
     return model[word]
 
-
 def cosine_similarity(vec1: np.ndarray, vec2: np.ndarray) -> float:
     return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
 
@@ -26,16 +25,6 @@ def visualize_embeddings(words: list):
         plt.scatter(reduced_embeddings[i, 0], reduced_embeddings[i, 1])
         plt.annotate(word, (reduced_embeddings[i, 0], reduced_embeddings[i, 1]))
     plt.show()
-
-def cosine_similarity(word1: str, word2: str) -> float:
-    embedding1 = get_word_embedding(word1)
-    embedding2 = get_word_embedding(word2)
-    return cosine_similarity(embedding2 - embedding1)
-
-def mean_squared_loss(word1: str, word2: str, word3: str) -> float:
-    embedding1 = get_word_embedding(word1)
-    embedding2 = get_word_embedding(word2)
-    return np.mean((embedding2 - embedding1) ** 2)
 
 def main():
     while True:
