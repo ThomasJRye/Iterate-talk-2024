@@ -1,16 +1,6 @@
 import numpy as np
 import argparse
-
-
-def mean_squared_error(act: np.ndarray, pred: np.ndarray) -> float:
-    diff = pred - act
-    print("difference", diff)
-    differences_squared = diff ** 2
-    print("difference suqared", differences_squared)
-    mean_diff = differences_squared.mean()
-    
-    return mean_diff
-
+from loss_util import mean_squared_error 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Calculate the loss function.")

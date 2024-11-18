@@ -23,7 +23,7 @@ tokens = preprocess_text('bible.txt')
 sentences = split_into_sentences(tokens)
 
 # Train Word2Vec model
-model = Word2Vec(sentences, vector_size=100, window=5, min_count=3, workers=4)
+model = Word2Vec(sentences, vector_size=600, window=5, min_count=3, workers=4)
 
 # Save the model
 model.save("bible_word2vec.model")
