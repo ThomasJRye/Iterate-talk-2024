@@ -1,5 +1,6 @@
 import numpy as np
 import argparse
+from loss_util import mean_squared_error 
 
 def loss(y_true, y_pred):
     if y_true == y_pred:
