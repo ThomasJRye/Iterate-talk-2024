@@ -10,6 +10,27 @@ import re
 # Download necessary NLTK resources
 nltk.download('punkt')
 
+
+def remove_chapter_verse_markers(text):
+    # Define the regex pattern to match chapter and verse markers
+    pattern = r'\b\d+:\d+\b'
+    # Use re.sub to replace the matched patterns with an empty string
+    cleaned_text = re.sub(pattern, '', text)
+    # Remove any extra spaces left after removing the markers
+    cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
+    return cleaned_text
+
+# Example usage
+if __name__ == "__main__":
+    with open('bible.txt', 'r') as file:
+        text = file.read()
+    
+    cleaned_text = remove_chapter_verse_markers(text)
+    
+    with open('cleaned_bible.txt', 'w') as file:
+        file.write(cleaned_text)
+    
+    print("Chapter and verse markers removed and saved to 'cleaned_bible.txt'")
 class NgramModel:
     def __init__(self, n):
         self.n = n
@@ -63,15 +84,23 @@ def read_lines_from_file(filename):
 
 if __name__ == "__main__":
     filename='training.txt'
-    parser = argparse.ArgumentParser(description="Generate text using an N-gram model.")
-    parser.add_argument("seed_text", type=str, help="Seed text to start the generation")
-    args = parser.parse_args()
-
-    input_text = read_lines_from_file(filename)
-    seed_text = args.seed_text
+    
+    input_text = remove_chapter_verse_markers(read_lines_from_file(filename))
 
     model = NgramModel(n=2)  # Use a smaller N-gram size
     model.train(input_text)
-    generated_text = model.generate(seed_text)
 
-    print(f"Generated text: {generated_text}")
+    context = ""
+    while True:
+        user_input = input("promt: ")
+        if user_input.lower() == 'exit':
+            break
+
+        context += user_input + " "
+
+        os.system('clear')  # Clear the terminal
+        print("Press Enter to get a new word, or type 'exit' to quit.")
+
+        new_word = model.generate(context)
+        context += new_word + " "
+        print(context, flush=True)
