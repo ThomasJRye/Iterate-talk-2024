@@ -1,6 +1,0 @@
-{"data": [
-    {"prompt": "I want to stop using my phone at 10pm", "completion": " @_goal(no phone, daily, 2200)_@"},
-    {"prompt": "I should stop gaming", "completion": " @_goal(no gaming, daily)_@"},
-    {"prompt": "I wish i could play guitar daily", "completion": " @_goal(guitar, daily)_@"} 
-    ]
-}
