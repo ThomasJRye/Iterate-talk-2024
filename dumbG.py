@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print("Press Enter to get a new word, or type 'exit' to quit.")
 
     while True:
-        user_input = input("promt :")
+        user_input = input("promt: ")
         if user_input.lower() == 'exit':
             break
 
