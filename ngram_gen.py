@@ -31,6 +31,7 @@ if __name__ == "__main__":
         file.write(cleaned_text)
     
     print("Chapter and verse markers removed and saved to 'cleaned_bible.txt'")
+
 class NgramModel:
     def __init__(self, n):
         self.n = n
