@@ -30,9 +30,10 @@ def visualize_embeddings(words: list):
 def cosine_similarity(word1: str, word2: str) -> float:
     embedding1 = get_word_embedding(word1)
     embedding2 = get_word_embedding(word2)
-    return cosine_similarity(embedding2 - embedding1)
+    
+    return np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2))
 
-def mean_squared_loss(word1: str, word2: str, word3: str) -> float:
+def mean_squared_loss(word1: str, word2: str) -> float:
     embedding1 = get_word_embedding(word1)
     embedding2 = get_word_embedding(word2)
     return np.mean((embedding2 - embedding1) ** 2)
@@ -40,18 +41,27 @@ def mean_squared_loss(word1: str, word2: str, word3: str) -> float:
 def main():
     while True:
         word1 = input("Enter the first word: ")
+        if word1 == 'exit()':
+            break
+
         word2 = input("Enter the second word: ")
+        if word2 == 'exit()':
+            break
 
         if word1 not in model or word2 not in model:
             print("One of the words is not in the vocabulary.")
             continue
 
-        embedding1 = get_word_embedding(word1)
-        embedding2 = get_word_embedding(word2)
+
+        looss = mean_squared_loss(word1, word2)
+
+        print(f"Mean squared loss between '{word1}' and '{word2}': {looss}")
+        input()
 
         # Cosine similarity
-        similarity = cosine_similarity(embedding1, embedding2)
+        similarity = cosine_similarity(word1, word2)
         print(f"Cosine similarity between '{word1}' and '{word2}': {similarity}")
+        input()
 
         # Word analogy
         word3 = input("Enter the third word for analogy (e.g., 'woman' for 'man is to king as woman is to ?'): ")
