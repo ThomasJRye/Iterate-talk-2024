@@ -8,16 +8,30 @@ from adjustText import adjust_text
 model = api.load("word2vec-google-news-300")
 
 list_of_countries = [
-    "United_States", "Canada", "Germany", "France", "Italy", "Spain", "China", "Japan", "India", "Brazil",
+    "United_States", "Canada", "Germany", "France", "England", "Italy", "Spain", "China", "Japan", "India", "Brazil",
     "Russia", "Australia", "Mexico", "South_Africa", "Argentina", "Saudi_Arabia", "North_Korea", "South_Korea", "Turkey",
     "Netherlands", "Switzerland", "Sweden", "Belgium", "Norway", "Poland", "Austria", "Denmark", "Finland",
     "Greece", "Portugal", "Ireland", "New_Zealand", "Israel", "Singapore", "Malaysia", "Thailand", "Indonesia",
     "Philippines", "Vietnam", "Pakistan", "Bangladesh", "Nigeria", "Egypt", "Kenya", "Morocco", "Algeria",
-    "Chile", "Colombia", "Peru", "Venezuela", "Cuba"
+    "Chile", "Colombia", "Peru", "Venezuela", "Cuba", "Hell"
 ]
 
 # Get the embeddings for the list of countries
-embeddings = np.array([model[country] for country in list_of_countries if country in model])
+embeddings = []
+missing_countries = []
+
+for country in list_of_countries:
+    if country in model:
+        embeddings.append(model[country])
+    else:
+        missing_countries.append(country)
+
+# Convert embeddings to a numpy array
+embeddings = np.array(embeddings)
+
+# Print countries not found in the model
+if missing_countries:
+    print("Countries not found in the model:", missing_countries)
 
 # Reduce dimensionality using PCA
 pca = PCA(n_components=2)
